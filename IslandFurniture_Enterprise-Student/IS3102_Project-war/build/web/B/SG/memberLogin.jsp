@@ -49,7 +49,7 @@
                                     <div class="box-content">
                                         <h4>I'm a Returning Customer</h4>
 
-                                        <form action="../../ECommerce_MemberLoginServlet">
+                                        <form action="../../ECommerce_MemberLoginServlet" >
                                             <div class="row">
                                                 <div class="form-group">
                                                     <div class="col-md-12">
@@ -69,7 +69,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input type="submit" onclick="validateForm()" value="Login" class="btn btn-primary pull-right push-bottom">
+                                                    <input type="submit" value="Login" class="btn btn-primary pull-right push-bottom">
                                                 </div>
                                             </div>
                                         </form>
