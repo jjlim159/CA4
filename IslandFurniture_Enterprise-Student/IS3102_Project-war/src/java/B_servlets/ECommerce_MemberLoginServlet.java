@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -39,20 +40,20 @@ public class ECommerce_MemberLoginServlet extends HttpServlet {
             response.addCookie(cookie);
 
             HttpSession session = request.getSession();
-
-            String memberEmail = loginMember(email, password);
-
-            if (memberEmail != null) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/ECommerce_GetMember");
+            String memberName = loginMember(email, password);
+            
+            if (memberName != null) {
                 List<CountryEntity> countries = facilityManagementBean.getListOfCountries();
                 session.setAttribute("countries", countries);
-
-                session.setAttribute("memberEmail", memberEmail);
-                response.sendRedirect("ECommerce_GetMember");
+                session.setAttribute("email", email);
+                dispatcher.forward(request, response);
+                //response.sendRedirect("./ECommerce_GetMember");
             } else {
                 result = "Login fail. Username or password is wrong or account is not activated.";
                 response.sendRedirect("/IS3102_Project-war/B/SG/memberLogin.jsp?errMsg=" + result);
             }
-
+            
         } catch (Exception ex) {
             out.println(ex);
             ex.printStackTrace();
@@ -72,9 +73,9 @@ public class ECommerce_MemberLoginServlet extends HttpServlet {
         if (response.getStatus() != 200) {
             return null;
         }
-
-        email = response.readEntity(String.class);
-        return email;
+        
+        String memberName = response.readEntity(String.class);
+        return memberName;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

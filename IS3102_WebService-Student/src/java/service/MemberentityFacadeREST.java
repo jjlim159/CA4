@@ -1,5 +1,6 @@
 package service;
 
+import Entity.Countryentity;
 import Entity.Itementity;
 import Entity.Lineitementity;
 import Entity.Member;
@@ -25,6 +26,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -33,6 +35,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -86,6 +89,64 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
         return list;
     }
 
+    //Update Member Profile Details - Used by ECommerce_GetMember
+    @PUT
+    @Path("updateMemberProfile")
+    @Produces({"application/json"})
+    public Response updateMemberProfile(@QueryParam("member") Member member) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345");
+            String stmt = "UPDATE memberentity m SET name=?,phone=?,city=?,address=?,securityquestion=?,"
+                    + "securityanswer=?,age=? WHERE m.Email=?";
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setString(1, member.getName());
+            ps.setString(2, member.getPhone());
+            ps.setString(3, member.getCity());
+            ps.setString(4, member.getAddress());
+            ps.setInt(5, member.getSecurityQuestion());
+            ps.setString(6, member.getSecurityAnswer());
+            ps.setInt(7, member.getAge());
+            ps.setInt(8, member.getIncome());
+            ps.setString(9, member.getEmail());
+            ResultSet rs = ps.executeQuery();
+
+            return Response.ok(member, MediaType.APPLICATION_JSON).build();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
+    
+    //Get Member Profile Details - Used by ECommerce_GetMember
+    @GET
+    @Path("memberProfile")
+    @Produces({"application/json"})
+    public Response getMemberProfile(@QueryParam("email") String email) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345");
+            String stmt = "SELECT * FROM memberentity m WHERE m.EMAIL=?";
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            Member member = new Member();
+            member.setId(rs.getLong("id"));
+            member.setEmail(rs.getString("email"));
+            member.setName(rs.getString("name"));
+            member.setPhone(rs.getString("phone"));
+            member.setCity(rs.getString("city"));
+            member.setAddress(rs.getString("address"));
+            member.setSecurityQuestion(rs.getInt("securityquestion"));
+            member.setSecurityAnswer(rs.getString("securityanswer"));
+            member.setAge(rs.getInt("age"));
+            member.setIncome(rs.getInt("income"));
+            return Response.ok(member, MediaType.APPLICATION_JSON).build();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
+    
     //this function is used by ECommerce_MemberLoginServlet
     @GET
     @Path("login")
@@ -98,10 +159,11 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             rs.next();
+            String memberName = rs.getString("name");
             String passwordSalt = rs.getString("PASSWORDSALT");
             String passwordHash = generatePasswordHash(passwordSalt, password);
             if (passwordHash.equals(rs.getString("PASSWORDHASH"))) {
-                return Response.ok(email, MediaType.APPLICATION_JSON).build();
+                return Response.ok(memberName, MediaType.APPLICATION_JSON).build();
             } else {
                 System.out.println("Login credentials provided were incorrect, password wrong.");
                 return Response.status(Response.Status.UNAUTHORIZED).build();
