@@ -27,11 +27,10 @@ public class ECommerce_MemberLoginServlet extends HttpServlet {
     @EJB
     private FacilityManagementBeanLocal facilityManagementBean;
 
-    private String result;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String result = "";
         try {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -48,7 +47,6 @@ public class ECommerce_MemberLoginServlet extends HttpServlet {
                 session.setAttribute("countries", countries);
                 session.setAttribute("email", email);
                 dispatcher.forward(request, response);
-                //response.sendRedirect("./ECommerce_GetMember");
             } else {
                 result = "Login fail. Username or password is wrong or account is not activated.";
                 response.sendRedirect("/IS3102_Project-war/B/SG/memberLogin.jsp?errMsg=" + result);
