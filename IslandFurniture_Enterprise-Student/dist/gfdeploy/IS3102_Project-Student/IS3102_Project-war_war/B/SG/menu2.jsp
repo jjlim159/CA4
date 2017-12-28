@@ -9,6 +9,7 @@
         </h1>
         <%
             String memberName = (String) (session.getAttribute("memberName"));
+            System.out.println(memberName);
             if (memberName == null) {
         %>
         <nav>
@@ -42,6 +43,7 @@
                     <a href="shoppingCart.jsp"><i class="icon icon-shopping-cart"></i>Shopping Cart</a>
                 </li>
                 <li>
+                    <input type="hidden" id="name" name="name" value="<%=memberName%>" />
                     <a href="../../ECommerce_GetMember"><i class="icon icon-user"></i>Profile</a>
                 </li>
                 <li>

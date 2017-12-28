@@ -59,10 +59,30 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
     }
 
     @PUT
-    @Path("{id}")
+    @Path("/{email}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Long id, Memberentity entity) {
-        super.edit(entity);
+    public Response edit(@PathParam("email") String email, Member member) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345");
+            String stmt = "UPDATE memberentity m SET name=?,phone=?,city=?,address=?,securityquestion=?,"
+                    + "securityanswer=?,age=?,income=? WHERE m.Email=?";
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setString(1, member.getName());
+            ps.setString(2, member.getPhone());
+            ps.setString(3, member.getCity());
+            ps.setString(4, member.getAddress());
+            ps.setInt(5, member.getSecurityQuestion());
+            ps.setString(6, member.getSecurityAnswer());
+            ps.setInt(7, member.getAge());
+            ps.setInt(8, member.getIncome());
+            ps.setString(9, email);
+            ps.executeUpdate();
+            
+            return Response.ok(member, MediaType.APPLICATION_JSON).build();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
 
     @DELETE
@@ -87,34 +107,6 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
         List<Memberentity> list2 = new ArrayList();
         list2.add(list.get(0));
         return list;
-    }
-
-    //Update Member Profile Details - Used by ECommerce_GetMember
-    @PUT
-    @Path("updateMemberProfile")
-    @Produces({"application/json"})
-    public Response updateMemberProfile(@QueryParam("member") Member member) {
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345");
-            String stmt = "UPDATE memberentity m SET name=?,phone=?,city=?,address=?,securityquestion=?,"
-                    + "securityanswer=?,age=? WHERE m.Email=?";
-            PreparedStatement ps = conn.prepareStatement(stmt);
-            ps.setString(1, member.getName());
-            ps.setString(2, member.getPhone());
-            ps.setString(3, member.getCity());
-            ps.setString(4, member.getAddress());
-            ps.setInt(5, member.getSecurityQuestion());
-            ps.setString(6, member.getSecurityAnswer());
-            ps.setInt(7, member.getAge());
-            ps.setInt(8, member.getIncome());
-            ps.setString(9, member.getEmail());
-            ResultSet rs = ps.executeQuery();
-
-            return Response.ok(member, MediaType.APPLICATION_JSON).build();
-        } catch(Exception ex) {
-            ex.printStackTrace();
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        }
     }
     
     //Get Member Profile Details - Used by ECommerce_GetMember
