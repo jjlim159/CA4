@@ -62,15 +62,15 @@
                             <i class="icon icon-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="icon icon-map-marker"></i> Tables & Desk</a></li>
-                            <li><a href="#"><i class="icon icon-map-marker"></i> Bathroom</a></li>
-                            <li><a href="#"><i class="icon icon-map-marker"></i> Beds & Mattresses</a></li>
-                            <li><a href="#"><i class="icon icon-map-marker"></i> Sofas & Chair</a></li>
-                            <li><a href="#"><i class="icon icon-map-marker"></i> Cabinets & Storage</a></li>
-                            <li><a href="#"><i class="icon icon-map-marker"></i> Lightings</a></li>
-                            <li><a href="#"><i class="icon icon-map-marker"></i> Study</a></li>
-                            <li><a href="#"><i class="icon icon-map-marker"></i> Children</a></li>
-                            <li><a href="#"><i class="icon icon-coffee"></i> Retail Products</a></li>
+                            <li><a href="../../ECommerce_FurnitureCategoryServlet?cat=<%=URLEncoder.encode("Tables & Desks")%>"><i class="icon icon-map-marker"></i> Tables & Desk</a></li>
+                            <li><a href="../../ECommerce_FurnitureCategoryServlet?cat=<%=URLEncoder.encode("Bathroom")%>"><i class="icon icon-map-marker"></i> Bathroom</a></li>
+                            <li><a href="../../ECommerce_FurnitureCategoryServlet?cat=<%=URLEncoder.encode("Beds & Mattresses")%>"><i class="icon icon-map-marker"></i> Beds & Mattresses</a></li>
+                            <li><a href="../../ECommerce_FurnitureCategoryServlet?cat=<%=URLEncoder.encode("Sofas & Chair")%>"><i class="icon icon-map-marker"></i> Sofas & Chair</a></li>
+                            <li><a href="../../ECommerce_FurnitureCategoryServlet?cat=<%=URLEncoder.encode("Cabinets & Storage")%>"><i class="icon icon-map-marker"></i> Cabinets & Storage</a></li>
+                            <li><a href="../../ECommerce_FurnitureCategoryServlet?cat=<%=URLEncoder.encode("Lightings")%>"><i class="icon icon-map-marker"></i> Lightings</a></li>
+                            <li><a href="../../ECommerce_FurnitureCategoryServlet?cat=<%=URLEncoder.encode("Study")%>"><i class="icon icon-map-marker"></i> Study</a></li>
+                            <li><a href="../../ECommerce_FurnitureCategoryServlet?cat=<%=URLEncoder.encode("Children")%>"><i class="icon icon-map-marker"></i> Children</a></li>
+                            <li><a href="../../ECommerce_AllRetailProductsServlet"><i class="icon icon-coffee"></i> Retail Products</a></li>
                         </ul>
                     </li>
                     <li>

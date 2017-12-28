@@ -56,7 +56,6 @@
                     <%
                         try {
                             Member member = (Member) session.getAttribute("member");
-                            
                             DecimalFormat df = new DecimalFormat("#.##");
                     %>
                     <div class="row" style="min-height: 500px;">
@@ -92,11 +91,10 @@
                                         <div class="form-group">
                                             <label>Country</label>
                                             <% if (member.getCity() != null || member.getCity() != "") { %>
-                                            <select name="country" disabled>
+                                            <select name="country">
                                                 <option value="<%=member.getCity()%>"><%=member.getCity()%></option>
                                                 <%} else {%>
                                                 <select name="country">
-                                                    <%}%>
                                                     <option value=""></option>
                                                     <option value="Afganistan">Afghanistan</option>
                                                     <option value="Albania">Albania</option>
@@ -346,6 +344,7 @@
                                                     <option value="Zambia">Zambia</option>
                                                     <option value="Zimbabwe">Zimbabwe</option>
                                                 </select>
+                                                <%}%>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>

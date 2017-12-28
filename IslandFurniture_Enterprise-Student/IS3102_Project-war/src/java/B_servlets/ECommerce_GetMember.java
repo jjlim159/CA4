@@ -41,9 +41,10 @@ public class ECommerce_GetMember extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
+        String email = "";
         try {
-            String email = (String) session.getAttribute("email");
+            email = (String) session.getAttribute("email");
             if (email != null) {
                 Member member = getMemberProfile(email);
                 session.setAttribute("member", member);
