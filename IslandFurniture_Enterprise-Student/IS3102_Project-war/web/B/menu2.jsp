@@ -14,10 +14,10 @@
         <nav>
             <ul class="nav nav-pills nav-top">
                 <li>
-                    <a href="#"><i class="icon icon-unlock-alt"></i>Login/Register</a>
+                    <a href="memberLogin.jsp"><i class="icon icon-unlock-alt"></i>Login/Register</a>
                 </li>
                 <li>
-                    <a href="#"><i class="icon icon-shopping-cart"></i>Contact Us</a>
+                    <a href="shoppingCart.jsp"><i class="icon icon-shopping-cart"></i>Contact Us</a>
                 </li>
             </ul>
             <button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse">
@@ -34,16 +34,16 @@
                 </li>
                 <li>
                     <!--###-->
-                    <a href="#"><i class="icon icon-shopping-cart"></i>Shopping Cart</a>
+                    <a href="shoppingCart.jsp"><i class="icon icon-shopping-cart"></i>Shopping Cart</a>
                 </li>
                 <li>
-                    <a href="#"><i class="icon icon-user"></i>Profile</a>
+                    <a href="../../ECommerce_MemberEditProfileServlet"><i class="icon icon-user"></i>Profile</a>
                 </li>
                 <li>
-                    <a href="#"><i class="icon icon-shopping-cart"></i>Contact Us</a>
+                    <a href="../../ECommerce_ContactUsServlet"><i class="icon icon-shopping-cart"></i>Contact Us</a>
                 </li>
                 <li>
-                    <a href="#"><i class="icon icon-unlock-alt"></i>Logout</a>
+                    <a href="../../ECommerce_LogoutServlet"><i class="icon icon-unlock-alt"></i>Logout</a>
                 </li>
             </ul>
             <button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse">
