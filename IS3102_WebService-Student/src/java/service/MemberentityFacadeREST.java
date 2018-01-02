@@ -77,7 +77,6 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
             ps.setInt(8, member.getIncome());
             ps.setString(9, email);
             ps.executeUpdate();
-            
             return Response.ok(member, MediaType.APPLICATION_JSON).build();
         } catch(Exception ex) {
             ex.printStackTrace();

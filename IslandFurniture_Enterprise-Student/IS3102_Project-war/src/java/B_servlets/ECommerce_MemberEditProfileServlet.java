@@ -59,7 +59,6 @@ public class ECommerce_MemberEditProfileServlet extends HttpServlet {
             member.setSecurityAnswer(request.getParameter("securityAnswer"));
             member.setAge(Integer.parseInt(request.getParameter("age")));
             member.setIncome(Integer.parseInt(request.getParameter("income")));
-            
             member = updateMemberProfile(member);
             if (member != null) {
                 HttpSession session = request.getSession();

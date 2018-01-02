@@ -32,7 +32,6 @@
                 }
                 return ok;
             }
-
             function pdpaWindow() {
                 var myWindow = window.open("pdpa.html");
             }

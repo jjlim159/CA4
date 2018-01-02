@@ -70,6 +70,7 @@ public class ECommerce_GetMember extends HttpServlet {
         if (response.getStatus() != 200) {
             return null;
         }
+        
         Member member = null;
         member = response.readEntity(Member.class);
         return member;
