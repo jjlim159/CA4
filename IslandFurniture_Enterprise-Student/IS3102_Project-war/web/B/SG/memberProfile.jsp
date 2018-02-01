@@ -55,6 +55,7 @@
                     <%
                         try {
                             Member member = (Member) session.getAttribute("member");
+                            System.out.println(member.getName());
                             DecimalFormat df = new DecimalFormat("#.##");
                     %>
                     <div class="row" style="min-height: 500px;">
@@ -412,7 +413,7 @@
                     </div>
                 </div>
                 <%
-                        session.removeAttribute("member");
+                        //session.removeAttribute("member");
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         response.sendRedirect("index.jsp");

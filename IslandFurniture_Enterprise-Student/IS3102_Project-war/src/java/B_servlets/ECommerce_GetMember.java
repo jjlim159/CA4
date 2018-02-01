@@ -48,10 +48,10 @@ public class ECommerce_GetMember extends HttpServlet {
             if (email != null) {
                 Member member = getMemberProfile(email);
                 session.setAttribute("member", member);
+                session.setAttribute("memberID", member.getId());
                 session.setAttribute("memberName", member.getName());
                 response.sendRedirect("/IS3102_Project-war/B/SG/memberProfile.jsp");
-            }
-            else {
+            } else {
                 response.sendRedirect("/IS3102_Project-war/B/SG/index.jsp");
             }
         } catch(Exception ex) {
