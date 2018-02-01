@@ -42,7 +42,7 @@ public class ECommerce_AddFurnitureToListServlet extends HttpServlet {
             ShoppingCartLineItem newItem = new ShoppingCartLineItem();
             String sku = request.getParameter("SKU");
             int qtyAvailable = getStockAvailable(sku);
-            boolean itemExist = false;
+            boolean itemExist = false; //Check for existing item in cart
             
             String goodMsg = "Item successfully added into the cart!";
             String errMsg = "Item not added to cart, not enough quantity available.";
@@ -66,6 +66,7 @@ public class ECommerce_AddFurnitureToListServlet extends HttpServlet {
                 }
             }    
             
+            //If item exist: false, add new item
             if (itemExist == false && qtyAvailable > 0) {
                 newItem.setId(request.getParameter("id"));
                 newItem.setSKU(sku);
@@ -98,6 +99,7 @@ public class ECommerce_AddFurnitureToListServlet extends HttpServlet {
         return item;
     }
     
+    //Get quantity of stock available for an item
     public int getStockAvailable(String SKU) {
         try {
             System.out.println("getQuantity() SKU: " + SKU);
