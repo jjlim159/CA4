@@ -1,3 +1,4 @@
+<%@page import="HelperClasses.Furniture"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="HelperClasses.ShoppingCartLineItem"%>
 <%@page import="EntityManager.WishListEntity"%>
@@ -16,9 +17,6 @@
         %>
         <script>
             var totalPrice = 0;
-            for (var i = 0, n = shoppingCart.getItems().size; i < n; i++) {
-                totalPrice += shoppingCart.getItems().get(i).get
-            }
             function removeItem() {
                 checkboxes = document.getElementsByName('delete');
                 var numOfTicks = 0;
@@ -127,41 +125,40 @@
                                                         <%ArrayList<ShoppingCartLineItem> shoppingCart = (ArrayList<ShoppingCartLineItem>) (session.getAttribute("shoppingCart"));
                                                             try {
                                                                 if (shoppingCart != null && shoppingCart.size() > 0) {
-                                                                    //for (ShoppingCartLineItem item : shoppingCart) {
+                                                                    for (ShoppingCartLineItem item : shoppingCart) {
+                                                                        finalPrice += (item.getPrice() * item.getQuantity());
                                                         %>
                                                         <tr class="cart_table_item">
                                                             <td class="product-remove">
-                                                                <input type="checkbox" name="delete" value="" />
+                                                                <input type="checkbox" name="delete" value="<%=item.getSKU()%>" />
                                                             </td>
                                                             <td class="product-thumbnail">
                                                                 <a href="furnitureProductDetails.jsp">
-                                                                    <img width="100" height="100" alt="" class="img-responsive" src="../../..<%=ImageURL()%>">
+                                                                    <img width="100" height="100" alt="" class="img-responsive" src="../../..<%=item.getImageURL()%>">
                                                                 </a>
                                                             </td>
                                                             <td class="product-name">
-                                                                <a class="productDetails" href="furnitureProductDetails.jsp">Insert product name</a>
+                                                                <a class="productDetails" href="furnitureProductDetails.jsp"><%=item.getName()%></a>
                                                             </td>
                                                             <td class="product-price">
-                                                                $<span class="amount" id="price<%=SKU()%>">
-                                                                    insert price here
-                                                                </span>
+                                                                $<span class="amount" id="price"><%=item.getPrice()%></span>
                                                             </td>
                                                             <td class="product-quantity">
                                                                 <form enctype="multipart/form-data" method="post" class="cart">
                                                                     <div class="quantity">
-                                                                        <input type="button" class="minus" value="-" onclick="minus('<%=SKU()%>')">
-                                                                        <input type="text" disabled="true" class="input-text qty text" title="Qty" value="" name="quantity" min="1" step="1" id="<%=SKU()%>">
-                                                                        <input type="button" class="plus" value="+" onclick="plus('<%=SKU()%>', '<%=Name()%>',<%=Price()%>, '<%=ImageURL()%>')">
+                                                                        <input type="button" class="minus" value="-" onclick="minus('<%=item.getSKU()%>')">
+                                                                        <input type="text" disabled="true" class="input-text qty text" title="Qty" value="<%=item.getQuantity()%>" name="quantity" min="1" step="1" id="<%=item.getSKU()%>">
+                                                                        <input type="hidden" name="SKU" value="<%=item.getSKU()%>"/>
+                                                                        <input type="button" class="plus" value="+" onclick="plus('<%=item.getSKU()%>', '<%=item.getName()%>',<%=item.getId()%>, '<%=item.getImageURL()%>')">
                                                                     </div>
                                                                 </form>
                                                             </td>
                                                             <td class="product-subtotal">
-                                                                $<span class="amount" id="totalPrice<%=SKU()%>">
-                                                                    insert total price here
-                                                                </span>
+                                                                $<span class="amount" id="totalPrice"><%=item.getPrice() * item.getQuantity()%></span>
                                                             </td>
                                                         </tr>
-                                                        <%                                                                 //   }
+                                                        <%          }
+                                                                    session.setAttribute("totalPrice", finalPrice);
                                                                 }
                                                             } catch (Exception ex) {
                                                                 System.out.println(ex);
@@ -176,9 +173,7 @@
                                                                 Total: 
                                                             </td>
                                                             <td class="product-subtotal">
-                                                                $<span class="amount" id="finalPrice" name="finalPrice">
-                                                                    
-                                                                </span>
+                                                                $<span class="amount" id="finalPrice" name="finalPrice"><%=finalPrice%></span>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -194,7 +189,7 @@
 
 
                                             <form id="makePaymentForm" name="makePaymentForm" method="post" hidden>
-                                                <div class="col-md-8">
+                                                <div class="col-md-10">
                                                     <br>
                                                     <table>
                                                         <tbody>
@@ -206,7 +201,7 @@
                                                                 <label>Name on Card: </label>
                                                             </td>
                                                             <td style="padding: 5px">
-                                                                <input type="text" class="input-text text" title="name"id="txtName" required>                                                            
+                                                                <input type="text" class="input-text text" title="name" id="txtName" required>                                                            
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -255,7 +250,8 @@
                                                                 <div align="right"><a href="#makePaymentModal" data-toggle="modal"><button class="btn btn-primary">Make Payment</button></a></div>
                                                             </td>
                                                         </tr>
-                                                        </tbody></table>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </form>
                                         </div>
@@ -274,7 +270,7 @@
                             <h4>Remove item(s)</h4>
                         </div>
                         <div class="modal-body">
-                            <p id="messageBox">The selected item(s) will be removed from your shopping cart. Are you sure you want to continue?</p>
+                            <p id="messageBox">The selected item(s) will be removed from your shopping cart. Are you sure you want to continue? </p>
                         </div>
                         <div class="modal-footer">                        
                             <input class="btn btn-primary" name="btnRemove" type="submit" value="Confirm" onclick="removeItem()"  />
@@ -318,16 +314,11 @@
             </div>  
 
             <jsp:include page="footer.html" />
-
+            
             <!-- Theme Initializer -->
             <script src="../../js/theme.plugins.js"></script>
             <script src="../../js/theme.js"></script>
-
-            <!-- Current Page JS -->
-            <script src="../../vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-            <script src="../../vendor/rs-plugin/js/jquery.themepunch.revolution.js"></script>
-            <script src="../../vendor/circle-flip-slideshow/js/jquery.flipshow.js"></script>
-            <script src="../../js/views/view.home.js"></script>   
+ 
         </div>
     </body>
 </html>
