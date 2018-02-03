@@ -51,6 +51,7 @@ public class ECommerce_StockAvailability extends HttpServlet {
         }
     }
 
+    //Get quantity available for each item, by store
     public int getQuantity(Long storeID, String SKU) {
         try {
             System.out.println("getQuantity() SKU: " + SKU);
