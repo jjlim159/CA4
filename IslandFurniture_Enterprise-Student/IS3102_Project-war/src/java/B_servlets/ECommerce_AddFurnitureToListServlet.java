@@ -54,6 +54,7 @@ public class ECommerce_AddFurnitureToListServlet extends HttpServlet {
                 for (ShoppingCartLineItem item: shoppingCart) {
                     if (item.getSKU().equalsIgnoreCase(sku)) {
                         itemExist = true;
+                        //Increase item quantity if item model exists in cart
                         if (qtyAvailable > item.getQuantity()) {
                             item = addItemQuantity(item);
                             errMsg = null;
@@ -64,8 +65,9 @@ public class ECommerce_AddFurnitureToListServlet extends HttpServlet {
                         break;
                     }
                 }
-            }    
+            }
             
+            //If item model does not exist in cart, add new item to cart
             if (itemExist == false && qtyAvailable > 0) {
                 newItem.setId(request.getParameter("id"));
                 newItem.setSKU(sku);
@@ -85,6 +87,7 @@ public class ECommerce_AddFurnitureToListServlet extends HttpServlet {
             session.setAttribute("goodMsg", goodMsg);
             response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp");
         } catch(Exception ex) {
+            
         }
     }
 
