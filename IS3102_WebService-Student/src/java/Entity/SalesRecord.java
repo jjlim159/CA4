@@ -10,10 +10,10 @@ import java.util.Date;
 
 public class SalesRecord {
     
-    private int id;
+    private Long id;
     private double amountDue;
     private double amountPaid;
-    private double amountPaidUsing;
+    private double amountPaidUsingPoints;
     private Date createdDate;
     private String currency;
     private int loyaltyPointsDeducted;
@@ -21,7 +21,7 @@ public class SalesRecord {
     private String posName;
     private String servedByStaff;
     private Long memberId;
-    private int storeId;
+    private Long storeId;
 
     public SalesRecord() {
     }
@@ -34,19 +34,19 @@ public class SalesRecord {
         this.memberId = memberId;
     }
 
-    public int getStoreId() {
+    public Long getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(int storeId) {
+    public void setStoreId(Long storeId) {
         this.storeId = storeId;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,12 +66,12 @@ public class SalesRecord {
         this.amountPaid = amountPaid;
     }
 
-    public double getAmountPaidUsing() {
-        return amountPaidUsing;
+    public double getAmountPaidUsingPoints() {
+        return amountPaidUsingPoints;
     }
 
-    public void setAmountPaidUsing(double amountPaidUsing) {
-        this.amountPaidUsing = amountPaidUsing;
+    public void setAmountPaidUsingPoints(double amountPaidUsingPoints) {
+        this.amountPaidUsingPoints = amountPaidUsingPoints;
     }
 
     public Date getCreatedDate() {

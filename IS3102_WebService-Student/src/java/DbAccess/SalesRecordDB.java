@@ -26,14 +26,14 @@ public class SalesRecordDB {
             ps.setDouble(3, amountPaid);
             ps.setNull(4, java.sql.Types.BIGINT);
             int rowsCreated = ps.executeUpdate();            
-            int salesRecordID = 0;
+            Long salesRecordID;
             
             if (rowsCreated == 0)
                 throw new SQLException("Create ECommerce Transaction Record Failed");
             
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    salesRecordID = generatedKeys.getInt(1);
+                    salesRecordID = generatedKeys.getLong(1);
                     salesRecord.setId(salesRecordID);
                     salesRecord.setAmountDue(amountPaid);
                     salesRecord.setAmountPaid(amountPaid);
