@@ -191,68 +191,58 @@
                                             <form id="makePaymentForm" name="makePaymentForm" method="post" hidden>
                                                 <div class="col-md-10">
                                                     <br>
-                                                    <table>
-                                                        <tbody>
-                                                            <tr>
-                                                        <h4 style="text-align: left">Credit Card Payment Details</h4>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 5px">
-                                                                <label>Name on Card: </label>
-                                                            </td>
-                                                            <td style="padding: 5px">
-                                                                <input type="text" class="input-text text" title="name" id="txtName" required>                                                            
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 5px">
-                                                                <label>Card Number: </label>
-                                                            </td>
-                                                            <td style="padding: 5px">
-                                                                <input type="text" class="input-text text " title="cardno" id="txtCardNo" required>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 5px">
-                                                                <label>CVV/CVC2: </label>
-                                                            </td>
-                                                            <td style="padding: 5px">
-                                                                <input type="text" class="input-text text " title="securitycode" id="txtSecuritycode" required>
-                                                            </td>
-                                                        </tr>
+                                                    <div class='card-wrapper'></div>
+                                                    <!-- CSS is included via this JavaScript file -->
+                                                    <script src="../../js/plugins/card.js"></script>
+                                                    
+                                                    <div>
+                                                        <label style="text-align:left">Credit Card Number: </label>
+                                                        <input type="text" id="number" name="number" max-length="16" style="align-content: left; " required><br>
+                                                        <label>Name On Card:</label>
+                                                        <input type="text" id="name" name="name" required/><br>
+                                                        <label>Expiry Date:</label>
+                                                        <input type="text" id="expiry" name="expiry" required/><br>
+                                                        <label>CVC:</label>
+                                                        <input type="text" id="cvc" name="cvc" required/><br>
+                                                    </div>
+                                                    <div align="right"><a href="#makePaymentModal" data-toggle="modal"><button class="btn btn-primary">Make Payment</button></a></div>
+                                                    <script>
+                                                        var card = new Card({
+                                                            form: 'form',
+                                                            container: '.card-wrapper',
 
-                                                        <tr>
-                                                            <td style="padding: 5px;">
-                                                                <label>Expiry Date: </label>
-                                                            </td>
-                                                            <td style="width: 300px">
-                                                                <select style="width: 120px; display: inline-block" class="dropdown-header" title="Month">
-                                                                    <option>January</option>
-                                                                    <option>February</option>
-                                                                    <option>March</option>
-                                                                    <option>April</option>
-                                                                    <option>May</option>
-                                                                    <option>June</option>
-                                                                    <option>July</option>
-                                                                    <option>August</option>
-                                                                    <option>September</option>
-                                                                    <option>October</option>
-                                                                    <option>November</option>
-                                                                    <option>December</option>
-                                                                </select>
-                                                                <input type="text" style="width: 60px" class="input-text text" title="year" id="year" required>(eg: 2015)                                                        
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="">
-                                                            </td>
-                                                            <td style="padding-top: 20px">
-                                                                <div align="right"><a href="#makePaymentModal" data-toggle="modal"><button class="btn btn-primary">Make Payment</button></a></div>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    </table>
+                                                            formSelectors: {
+                                                                numberInput: 'input#number', // optional — default input[name="number"]
+                                                                expiryInput: 'input#expiry', // optional — default input[name="expiry"]
+                                                                cvcInput: 'input#cvc', // optional — default input[name="cvc"]
+                                                                nameInput: 'input#name' // optional - defaults input[name="name"]
+                                                            },
+
+                                                            width: 200, // optional — default 350px
+                                                            formatting: true, // optional - default true
+
+                                                            // Strings for translation - optional
+                                                            messages: {
+                                                                validDate: 'valid\ndate', // optional - default 'valid\nthru'
+                                                                monthYear: 'mm/yyyy', // optional - default 'month/year'
+                                                            },
+
+                                                            // Default placeholders for rendered fields - optional
+                                                            placeholders: {
+                                                                number: '•••• •••• •••• ••••',
+                                                                name: 'Full Name',
+                                                                expiry: '••/••',
+                                                                cvc: '•••'
+                                                            },
+
+                                                            masks: {
+                                                                cardNumber: '•' // optional - mask card number
+                                                            },
+
+                                                            // if true, will log helpful messages for setting up Card
+                                                            debug: false // optional - default false
+                                                        });
+                                                    </script>
                                                 </div>
                                             </form>
                                         </div>
@@ -315,13 +305,16 @@
             </div>  
 
             <jsp:include page="footer.html" />
-
-            <script>
-            </script>
+            
             <!-- Theme Initializer -->
             <script src="../../js/theme.plugins.js"></script>
             <script src="../../js/theme.js"></script>
- 
+
+            <!-- Current Page JS -->
+            <script src="../../vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+            <script src="../../vendor/rs-plugin/js/jquery.themepunch.revolution.js"></script>
+            <script src="../../vendor/circle-flip-slideshow/js/jquery.flipshow.js"></script>
+            <script src="../../js/views/view.home.js"></script>   
         </div>
     </body>
 </html>
